@@ -25,11 +25,11 @@ app.use('/api/toumi',pcProductsRoutes)
 app.get(`api/config/paypal`,(req,res)=>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
-const corsOptions = {
-    origin: "https://hi-tech-front.onrender.com", // frontend URI (ReactJS)
-}
-app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
+app.get("/",(req,res)=>{
+    res.setHeader("Access-Control-Allow-Credentials","true")
+    res.send('api is runnig')
+})
 app.use(notFound)
 app.use(errorHandler)
 app.use((req,res,next)=>{
