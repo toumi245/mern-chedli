@@ -18,7 +18,7 @@ connectDB()
 const app=express()
 
 app.use(express.json())
-app.use('/api/products',productRoutes)
+app.use(' /api/products',productRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/orders',orderRoutes)
 app.use('/api/toumi',pcProductsRoutes)
@@ -38,15 +38,11 @@ app.use((err,req,res,next)=>{
     res.status(statusCode)
     res.json(err.message)
 })
-// if (process.env.NODE_ENV === 'production') {
-//     //*Set static folder up in production
-//     app.use(express.static('FronEnd/build'));
+app.use(cors({
+    origin:["http://localhost:5000","http://hi-tech.onrender.com"],
+}))
 
-//     app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'FronEnd', 'build','index.html')));
-//   }
-app.use(cors())
-app.get("/",(req,res)=>{
-res.setHeader("Access-Control-Allow-Credentials","true")
-res.send("API is running")})
+
+
 const PORT=process.env.PORT ||5001
 app.listen(PORT,console.log(`server is running in ${PORT}`.yellow.bold))
