@@ -25,7 +25,10 @@ app.use('/api/toumi',pcProductsRoutes)
 app.get(`api/config/paypal`,(req,res)=>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
-
+app.use(express.static(path.join(__dirname,'./FronEnd/build')))
+app.get("*",function(req,res){
+    res.sendFile(path.join(__dirname,'./FronEnd/build/index.html'))
+})
 app.use(notFound)
 app.use(errorHandler)
 app.use((req,res,next)=>{
@@ -38,10 +41,6 @@ app.use((err,req,res,next)=>{
     res.status(statusCode)
     res.json(err.message)
 })
-app.use(cors({
-    origin:["https://hi-tech-front.onrender.com"],
-}))
-
 
 
 const PORT=process.env.PORT ||5001
