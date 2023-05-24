@@ -13,6 +13,7 @@ import cors from 'cors'
 import connectDB from './config/db.js'
 import { Error } from 'mongoose'
 import pcProducts from './data/pcproducts.js'
+import path from 'path'
 dotenv.config()
 connectDB()
 const app=express()
@@ -25,11 +26,17 @@ app.use('/api/toumi',pcProductsRoutes)
 app.get(`api/config/paypal`,(req,res)=>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
-app.use(cors());
-app.get("/",(req,res)=>{
-    res.setHeader("Access-Control-Allow-Credentials","true")
-    res.send('api is runnig')
-})
+// app.use(cors());
+// app.get("/",(req,res)=>{
+//     res.setHeader("Access-Control-Allow-Credentials","true")
+//     res.send('api is runnig')
+// })
+if (process.env.NODE_ENV === 'production') {
+    //*Set static folder up in production
+    app.use(express.static('FronEnd/build'));
+
+    app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'FronEnd', 'build','index.html')));
+  }
 app.use(notFound)
 app.use(errorHandler)
 app.use((req,res,next)=>{
