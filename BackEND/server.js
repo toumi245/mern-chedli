@@ -25,10 +25,11 @@ app.use('/api/toumi',pcProductsRoutes)
 app.get(`api/config/paypal`,(req,res)=>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
-app.use(express.static(path.join(__dirname,'./FronEnd/build')))
-app.get("*",function(req,res){
-    res.sendFile(path.join(__dirname,'./FronEnd/build/index.html'))
-})
+const corsOptions = {
+    origin: "https://hi-tech-front.onrender.com", // frontend URI (ReactJS)
+}
+app.use(express.json());
+app.use(cors(corsOptions));
 app.use(notFound)
 app.use(errorHandler)
 app.use((req,res,next)=>{
