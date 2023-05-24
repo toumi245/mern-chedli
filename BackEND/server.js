@@ -39,7 +39,7 @@ app.use((err,req,res,next)=>{
     res.json(err.message)
 })
 app.use(cors({
-    origin:["http://localhost:5000","http://hi-tech.onrender.com"],
+    origin:["https://hi-tech-front.onrender.com"],
 }))
 
 
