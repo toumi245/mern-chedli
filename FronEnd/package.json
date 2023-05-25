@@ -1,6 +1,6 @@
 {
   "name": "mern",
-  "proxy": "https://backend-kybc.onrender.com",
+  "proxy": "https://backend-jbtl.onrender.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
